@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import history from '../history';
 
 class MovieItem extends Component {
     constructor(props) {
@@ -8,9 +9,9 @@ class MovieItem extends Component {
     render() {
         const { movieId } = this.props;
         return (<div>
-            <button onClick={() => this.props.goToTrailer(movieId)}>{this.props.name}</button>
+            <img src={this.props.movieImageUrl} onClick={() => history.push(`/MovieTrailer/${movieId}`)}></img>
         </div>);
     }
 }
 
-export default MovieItem
+export default MovieItem;

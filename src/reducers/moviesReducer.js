@@ -1,8 +1,10 @@
 import { FETCH_MOVIES_PENDING, FETCH_MOVIES_SUCCESS, FETCH_MOVIES_ERROR } from '../actions/actions';
+import { TMDB_PAGE_STARTS_AT } from '../constants';
 
 const initialState = {
     pending: false,
-    movies: [],
+    movieItems: [],
+    currentPage: TMDB_PAGE_STARTS_AT,
     error: null
 }
 
@@ -17,7 +19,8 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 pending: false,
-                movies: action.items
+                currentPage: action.currentPage,
+                movieItems: [...state.movieItems, ...action.movieItems]
             }
         case FETCH_MOVIES_ERROR:
             return {

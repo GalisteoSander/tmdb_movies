@@ -5,12 +5,18 @@ import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import App from './containers/App';
 import { rootReducer } from './reducers/index';
+import { Router } from 'react-router-dom';
+import history from './history';
 
-
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
-    <Provider store={createStore(rootReducer, applyMiddleware(thunk))}>
-        <App></App>
+
+    <Provider store={store}>
+        <Router history={history}>
+            <App></App>
+        </Router>
     </Provider>,
     document.getElementById('root')
 )
+export default store;
