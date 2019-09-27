@@ -7,9 +7,9 @@ class MovieItem extends Component {
     }
 
     render() {
-        const { movieId } = this.props;
+        const { movieId, onGoToTrailerCLick } = this.props;
         return (<div>
-            <img src={this.props.movieImageUrl} onClick={() => history.push(`/MovieTrailer/${movieId}`)}></img>
+            <img src={this.props.movieImageUrl} onClick={() => onGoToTrailerCLick(movieId)}></img>
         </div>);
     }
 }

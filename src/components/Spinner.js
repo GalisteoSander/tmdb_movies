@@ -1,7 +1,15 @@
 import * as React from 'react';
+import { makeStyles, CircularProgress } from "@material-ui/core";
 
-const Spinner = () => {
-    return <p>Loading...</p>
+const useStyles = makeStyles(theme => ({
+    progress: {
+        margin: theme.spacing(2)
+    }
+
+}));
+
+export const Spinner = () => {
+    const classes = useStyles();
+    return <CircularProgress className={classes.progress} color="secondary" />
 }
 
-export default Spinner

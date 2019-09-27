@@ -8,6 +8,7 @@ export const TRAILER = "trailer";
 export const API_KEY = "api_key";
 export const API_KEY_VALUE = "a8663828b94db4abbb14e2c2f62a2692";
 export const BASE_URL = "https://api.themoviedb.org/3";
+export const YOUTUBE_EMBED_URL = "https://www.youtube.com/embed/";
 export const DISCOVER = "/discover/movie";
 export const APPEND_TO_RESPONSE_VIDEOS = "append_to_response=videos";
 export const BASE_URL_IMAGE = "http://image.tmdb.org/t/p/w300";

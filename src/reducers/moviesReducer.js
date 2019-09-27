@@ -1,4 +1,4 @@
-import { FETCH_MOVIES_PENDING, FETCH_MOVIES_SUCCESS, FETCH_MOVIES_ERROR } from '../actions/actions';
+import { FETCH_MOVIES_PENDING, FETCH_MOVIES_SUCCESS, FETCH_MOVIES_ERROR } from '../actions/actionTypes';
 import { TMDB_PAGE_STARTS_AT } from '../constants';
 
 const initialState = {
