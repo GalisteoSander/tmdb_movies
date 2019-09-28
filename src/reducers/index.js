@@ -4,6 +4,6 @@ import trailerKeysReducer from './trailerKeysReducer';
 
 export const rootReducer = combineReducers({
     movies: moviesReducer,
-    keys: trailerKeysReducer
+    trailers: trailerKeysReducer
 });
 

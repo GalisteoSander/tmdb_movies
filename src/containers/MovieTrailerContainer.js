@@ -25,18 +25,22 @@ class MovieTrailerContainer extends Component {
     }
 
     render() {
-        const { keys, clearTrailers } = this.props;
+        const { keys, clearTrailers, pending, error } = this.props;
         return (
-            keys && keys.length > 0 ?
-                <MovieTrailer trailerUrl={constructUrlForVideoTrailer(selectRandomVideo(this.props.keys))} />
+            // keys && keys.length > 0 
+            !pending ?
+                <MovieTrailer error={error} trailerUrl={constructUrlForVideoTrailer(selectRandomVideo(this.props.keys))} />
                 : <Spinner />
         );
     }
 }
 
 const mapStateToProps = state => {
+
     return {
-        keys: state.keys.keys
+        keys: state.trailers.keys,
+        error: state.trailers.error,
+        pending: state.trailers.pending
     }
 }
 

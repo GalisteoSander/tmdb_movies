@@ -10,30 +10,46 @@ class MovieListContainer extends Component {
         super(props);
     }
 
-    fetchMore = (e) => {
-        e.preventDefault();
+    fetchMore = () => {
         const { currentPage } = this.props;
         this.props.fetchMovies(currentPage);
+    }
+
+    componentDidMount() {
+        const emptyMoviesArray = 0;
+        const { movieItems } = this.props;
+        if (movieItems.length === emptyMoviesArray) {
+            this.fetchMore();
+        }
+
+        window.addEventListener('scroll', this.handleScroll);
+    }
+
+    handleScroll = (e) => {
+        const { scrolling, movieItems } = this.props;
+        if (!scrolling) {
+            let numberOfMovieItems = movieItems.length - 1;
+            let lastMovieItem = document.querySelector(`[name="${numberOfMovieItems}"]`);
+            const lastMovieItemOffset = lastMovieItem.offsetTop + lastMovieItem.clientHeight;
+            const pageOffset = window.pageYOffset + window.innerHeight;
+            var bottomOffset = 30;
+            if (pageOffset > lastMovieItemOffset - bottomOffset) this.fetchMore();
+        }
+    }
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
     }
 
     goToTrailer = movieId => {
         history.push(`/MovieTrailer/${movieId}`);
     }
 
-    componentDidMount() {
-        const emptyMoviesArray = 0;
-        const { currentPage, movieItems } = this.props;
-        console.log(this.props);
-        console.log(history);
-        if (movieItems.length === emptyMoviesArray) {
-            this.props.fetchMovies(currentPage);
-        }
-    }
-
     render() {
-        const { goToTrailer, fetchMore, movieItems } = this.props;
+        const { goToTrailer, fetchMore, movieItems, pending, error } = this.props;
         return (
-            <MovieList movieItems={movieItems} onGoToTrailerCLick={this.goToTrailer} handleScroll={this.fetchMore}></MovieList>
+            <div>
+                <MovieList error={error} pending={pending} movieItems={movieItems} onGoToTrailerCLick={this.goToTrailer} handleScroll={this.fetchMore}></MovieList>
+            </div>
         );
     }
 }
@@ -41,6 +57,9 @@ class MovieListContainer extends Component {
 
 const mapStateToProps = state => {
     return {
+        error: state.movies.error,
+        scrolling: state.movies.scrolling,
+        pending: state.movies.pending,
         movieItems: state.movies.movieItems,
         currentPage: state.movies.currentPage
     }

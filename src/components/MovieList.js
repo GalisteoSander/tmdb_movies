@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import MovieItem from './MovieItem';
+import React from "react";
+import { MovieItem } from './MovieItem';
 import { Spinner } from './Spinner';
 import { constructUrlOfMovieImage } from '../helpers';
-import { makeStyles, Box, Button, Grid, Card, CardActionArea } from "@material-ui/core";
+import { makeStyles, Grid } from "@material-ui/core";
+import { ErrorSnackbar } from './ErrorSnackbar';
 
 
 const useStyles = makeStyles(theme => ({
@@ -12,36 +13,44 @@ const useStyles = makeStyles(theme => ({
     listDiv: {
         marginTop: '20px',
         padding: '30'
-    }
+    },
+
+    margin: {
+        margin: theme.spacing(2),
+    },
 }));
 
 export const MovieList = (props) => {
     const classes = useStyles();
-    const { movieItems, onGoToTrailerCLick, handleScroll } = props;
+    const { movieItems, onGoToTrailerCLick, pending, handleScroll } = props;
+    const emptyMovieList = movieItems.length === 0;
+    const error = props.error;
 
+    const loadingOrErrorDisplay = () => {
+        if (pending || emptyMovieList)
+            return <Spinner className={classes.progress} color="secondary" />;
+        else if (error)
+            return <ErrorSnackbar variant="error" className={classes.margin} message={error} />
+    }
+
+    loadingOrErrorDisplay();
     return (
-
         <div className={classes.listDiv} >
             <Grid container spacing={1} justify="center">
-                {movieItems && movieItems.length > 0 ?
-                    movieItems.map(
-                        movie => (
-                            <Grid item key={movie.id}>
-                                <Card>
-                                    <CardActionArea>
-                                        <MovieItem key={movie.id} movieImageUrl={constructUrlOfMovieImage(movie.backdrop_path)}
-                                            movieId={movie.id} onGoToTrailerCLick={onGoToTrailerCLick} name={movie.original_title} >
-                                        </MovieItem>
-                                    </CardActionArea>
-                                </Card>
-                            </Grid>
-                        )) : <Spinner className={classes.progress} color="secondary" />}
+                {movieItems.map(
+                    (movie, index) => (
+                        <Grid item key={movie.id}>
+                            <MovieItem index={index} key={movie.id} movieImageUrl={constructUrlOfMovieImage(movie.backdrop_path)}
+                                movieId={movie.id} onGoToTrailerCLick={onGoToTrailerCLick} movieTitle={movie.original_title} >
+                            </MovieItem>
+                        </Grid>
+                    ))}
+                {loadingOrErrorDisplay()}
             </Grid>
-            {<Box align="center">
-                <Button variant="contained" color="primary" onClick={handleScroll} marginTop="5%">LOAD MORE</Button>
-            </Box>}
         </div>
     )
-
 }
+
+
+
 
