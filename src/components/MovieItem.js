@@ -39,17 +39,16 @@ const useStyles = makeStyles(theme => ({
 
 export const MovieItem = (props) => {
     const classes = useStyles();
-    const { movieId, movieTitle, movieImageUrl, onGoToTrailerCLick } = props;
+    const { movieId, movieTitle, movieImageUrl } = props;
     return (
-        <Link to={`/MovieTrailer/${movieId}`}>
+        <Link to={`/MovieTrailer/${movieId}`} test-attrib="link-wrapper">
 
             <div name={props.index}>
                 <Card className={classes.card}>
                     <CardActionArea >
-                        <img src={movieImageUrl} onClick={() => onGoToTrailerCLick(movieId)}></img>
+                        <img src={movieImageUrl} ></img>
                         <CardContent className={classes.tile}>
                             <div className={`${classes.tile} ${classes.tileInner}`}></div>
-
                         </CardContent>
                         <Typography className={classes.text} gutterBottom variant="h6" component="h3">
                             {movieTitle}
@@ -59,7 +58,7 @@ export const MovieItem = (props) => {
 
 
             </div>
-        </Link>
+        </Link >
     );
 }
 

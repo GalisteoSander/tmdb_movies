@@ -1,13 +1,12 @@
-import { constructUrlToAppendVideosToMovie, filterMovieVideosByItIsTrailer, getVideoKeys } from '../helpers';
+import { filterMovieVideosByItIsTrailer, getVideoKeys } from '../helpers';
 import { FETCH_YOUTUBE_TRAILER_KEYS_SUCCESS, FETCH_YOUTUBE_TRAILER_KEYS_PENDING, FETCH_YOUTUBE_TRAILER_KEYS_ERROR, CLEAR_TRAILERS } from './actionTypes';
-import { BottomNavigationAction } from '@material-ui/core';
 
-export default function fetchYoutubeTrailerKeys(movieId) {
 
-    let movieUrls = constructUrlToAppendVideosToMovie(movieId);
+export default function fetchYoutubeTrailerKeys(url) {
+
     return dispatch => {
         dispatch(fetchYoutubeTrailerKeysPending());
-        fetch(movieUrls)
+        return fetch(url)
             .then(res =>
                 res.json())
             .then(res => {
@@ -38,7 +37,7 @@ export const fetchYoutubeTrailerKeysPending = (trailerKeys) => {
 export const fetchYoutubeTrailerKeysError = (error) => {
     return {
         type: FETCH_YOUTUBE_TRAILER_KEYS_ERROR,
-        error: error.message
+        error: error
     }
 }
 

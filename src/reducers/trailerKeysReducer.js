@@ -4,12 +4,13 @@ import {
 } from '../actions/actionTypes';
 
 const initialState = {
+
     pending: true,
     keys: [],
     error: null
 }
 
-export default function (state = {}, action) {
+export default function (state = initialState, action) {
     switch (action.type) {
         case FETCH_YOUTUBE_TRAILER_KEYS_SUCCESS:
             return {
@@ -30,7 +31,8 @@ export default function (state = {}, action) {
             }
         case CLEAR_TRAILERS:
             return {
-                ...state, keys: undefined
+                ...state,
+                keys: undefined
             }
         default:
             return state;

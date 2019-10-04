@@ -1,9 +1,8 @@
-import { FETCH_MOVIES_PENDING, FETCH_MOVIES_SUCCESS, FETCH_MOVIES_ERROR, GOING_TO_TRAILER } from './actionTypes';
-import { constructUrlsForDiscover, filterMoviesByHasImageToDisplay, concatMoviePages } from '../helpers';
+import { FETCH_MOVIES_PENDING, FETCH_MOVIES_SUCCESS, FETCH_MOVIES_ERROR } from './actionTypes';
+import { filterMoviesByHasImageToDisplay, concatMoviePages } from '../helpers';
 import { NUMBER_OF_PAGES_TO_FETCH } from '../constants';
 
-export default function fetchMovies(currentPage) {
-    let movieUrls = constructUrlsForDiscover(currentPage, NUMBER_OF_PAGES_TO_FETCH);
+export default function fetchMovies(currentPage, movieUrls) {
 
     return dispatch => {
         dispatch(fetchMoviesPending());

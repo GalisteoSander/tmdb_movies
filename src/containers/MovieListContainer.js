@@ -2,17 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import fetchMovies from '../actions/movieActions';
-import history from '../history';
 import { MovieList } from '../components/MovieList';
+import { constructUrlsForDiscover } from '../helpers';
+import { NUMBER_OF_PAGES_TO_FETCH } from '../constants';
 
-class MovieListContainer extends Component {
+export class MovieListContainer extends Component {
     constructor(props) {
         super(props);
     }
 
     fetchMore = () => {
         const { currentPage } = this.props;
-        this.props.fetchMovies(currentPage);
+        let url = constructUrlsForDiscover(currentPage, NUMBER_OF_PAGES_TO_FETCH);
+        this.props.fetchMovies(currentPage, url);
     }
 
     componentDidMount() {
@@ -36,16 +38,14 @@ class MovieListContainer extends Component {
             if (pageOffset > lastMovieItemOffset - bottomOffset) this.fetchMore();
         }
     }
+
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll);
     }
 
-    goToTrailer = movieId => {
-        history.push(`/MovieTrailer/${movieId}`);
-    }
 
     render() {
-        const { goToTrailer, fetchMore, movieItems, pending, error } = this.props;
+        const { movieItems, pending, error } = this.props;
         return (
             <div>
                 <MovieList error={error} pending={pending} movieItems={movieItems} onGoToTrailerCLick={this.goToTrailer} handleScroll={this.fetchMore}></MovieList>

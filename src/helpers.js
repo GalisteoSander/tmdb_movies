@@ -2,6 +2,7 @@ import {
     BASE_URL_FOR_VIDEOS, PAGE_EQUALS, BASE_URL_FOR_DISCOVER, START_QUERY_AND_API_KEY, APPEND_TO_RESPONSE_VIDEOS, AND, BASE_URL_IMAGE, YOUTUBE_EMBED_URL, TRAILER
 } from './constants';
 
+
 export const constructUrlOfMovieImage = (imagePath) => {
     return `${BASE_URL_IMAGE}${imagePath}`;
 }
@@ -42,4 +43,3 @@ export const filterMovieVideosByItIsTrailer = (videos) => {
 export const getVideoKeys = (videos) => {
     return videos.map(video => video.key)
 }
-

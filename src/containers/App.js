@@ -5,8 +5,9 @@ import MovieListContainer from './MovieListContainer'
 import MovieTrailerContainer from './MovieTrailerContainer'
 import TypoGraphy from '@material-ui/core/Typography'
 
+
 const App = () => {
-    return (<div>
+    return (<div >
 
         <Header>
             <TypoGraphy position="static" ></TypoGraphy>

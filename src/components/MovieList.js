@@ -22,9 +22,8 @@ const useStyles = makeStyles(theme => ({
 
 export const MovieList = (props) => {
     const classes = useStyles();
-    const { movieItems, onGoToTrailerCLick, pending, handleScroll } = props;
+    const { movieItems, pending, error } = props;
     const emptyMovieList = movieItems.length === 0;
-    const error = props.error;
 
     const loadingOrErrorDisplay = () => {
         if (pending || emptyMovieList)
@@ -35,13 +34,13 @@ export const MovieList = (props) => {
 
     loadingOrErrorDisplay();
     return (
-        <div className={classes.listDiv} >
+        <div className={classes.listDiv} test-attrib="movie-list" >
             <Grid container spacing={1} justify="center">
                 {movieItems.map(
                     (movie, index) => (
                         <Grid item key={movie.id}>
                             <MovieItem index={index} key={movie.id} movieImageUrl={constructUrlOfMovieImage(movie.backdrop_path)}
-                                movieId={movie.id} onGoToTrailerCLick={onGoToTrailerCLick} movieTitle={movie.original_title} >
+                                movieId={movie.id} movieTitle={movie.original_title} >
                             </MovieItem>
                         </Grid>
                     ))}
