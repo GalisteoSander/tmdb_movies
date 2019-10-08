@@ -26,7 +26,7 @@ export class MovieTrailerContainer extends Component {
     }
 
     render() {
-        const { pending, keys, error } = this.props;
+        const { pending, error } = this.props;
         return (
             !pending ?
                 <MovieTrailer error={error} trailerUrl={constructUrlForVideoTrailer(selectRandomVideo(this.props.keys))} />

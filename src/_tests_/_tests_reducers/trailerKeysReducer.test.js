@@ -9,12 +9,12 @@ describe('Trailer Keys Reducer', () => {
         expect(trailerKeysReducer(undefined, {
             pending: true,
             keys: [],
-            error: null
+            error: false
         })).toEqual(
             {
                 pending: true,
                 keys: [],
-                error: null
+                error: false
             }
         )
     })
@@ -54,13 +54,14 @@ describe('Trailer Keys Reducer', () => {
         expect(
             trailerKeysReducer({
                 pending: true,
+                error: false,
             }, {
                 type: FETCH_YOUTUBE_TRAILER_KEYS_ERROR,
-                error: {}
+
             })
         ).toEqual({
             pending: false,
-            error: {}
+            error: true
         }
         )
 
@@ -69,12 +70,29 @@ describe('Trailer Keys Reducer', () => {
         expect(
             trailerKeysReducer({
                 keys: ['key1', 'key2']
+
             }, {
                 type: CLEAR_TRAILERS,
 
             })
         ).toEqual({
-            keys: undefined
+            keys: undefined,
+            error: false
+        }
+        )
+
+    })
+
+    it('should handle CLEAR_TRAILERS correctly if there was an error', () => {
+        expect(
+            trailerKeysReducer({
+                error: true
+            }, {
+                type: CLEAR_TRAILERS,
+            })
+        ).toEqual({
+            keys: undefined,
+            error: false
         }
         )
 

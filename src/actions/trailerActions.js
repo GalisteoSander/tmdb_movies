@@ -16,7 +16,7 @@ export default function fetchYoutubeTrailerKeys(url) {
                 let youtubeVideoKeys = getVideoKeys(filterMovieVideosByItIsTrailer(res.videos.results));
                 dispatch(fetchYoutubeTrailerKeysSuccess(youtubeVideoKeys));
             }).catch(error => {
-                dispatch(fetchYoutubeTrailerKeysError(error))
+                dispatch(fetchYoutubeTrailerKeysError())
             })
     }
 }
@@ -34,10 +34,10 @@ export const fetchYoutubeTrailerKeysPending = (trailerKeys) => {
     }
 }
 
-export const fetchYoutubeTrailerKeysError = (error) => {
+export const fetchYoutubeTrailerKeysError = () => {
     return {
         type: FETCH_YOUTUBE_TRAILER_KEYS_ERROR,
-        error: error
+
     }
 }
 

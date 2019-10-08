@@ -48,7 +48,6 @@ export const MovieTrailer = (props) => {
     const classes = useStyles();
     const { trailerUrl, error } = props;
 
-    if (error) return <ErrorSnackbar variant="error" className={classes.margin} message={error} />
     return (<div>
         <div className={classes.backGround} test-attrib="movie-trailer">
             <Container direction="row" >
@@ -59,9 +58,12 @@ export const MovieTrailer = (props) => {
                         </Fab>
                     </Link>
                 </div>
-                <div className={classes.embeddedBox}>
-                    <iframe className={classes.embeddedIframe} src={trailerUrl} />
-                </div>
+                {
+                    error ? (
+                        <ErrorSnackbar variant="error" className={classes.margin} message="An error occurred. Please try a different trailer!" />)
+                        : (<div className={classes.embeddedBox}>
+                            <iframe className={classes.embeddedIframe} src={trailerUrl} />
+                        </div>)}
             </Container>
         </div>
     </div >

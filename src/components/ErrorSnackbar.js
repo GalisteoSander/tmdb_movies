@@ -5,6 +5,8 @@ import SnackbarContent from '@material-ui/core/SnackbarContent';
 
 const useStyles = makeStyles(theme => ({
     error: {
+        position: 'relative',
+        top: 17,
         marginTop: 50,
         backgroundColor: theme.palette.error.dark,
     },
@@ -26,16 +28,14 @@ const useStyles = makeStyles(theme => ({
 
 export const ErrorSnackbar = (props) => {
     const classes = useStyles();
-    const { className, message } = props;
-    const vertical = 'bottom';
-    const horizontal = 'center';
+    const { message } = props;
+
     return (
         <SnackbarContent
             className={classes.error}
-            anchorOrigin={{ vertical, horizontal }}
             aria-describedby="client-snackbar"
             message={
-                <span id="client-snackbar" className={classes.message}>
+                <span id="client-snackbar" >
                     <ErrorIcon className={classes.icon}></ErrorIcon>
                     {message}
                 </span>

@@ -7,7 +7,7 @@ const initialState = {
 
     pending: true,
     keys: [],
-    error: null
+    error: false
 }
 
 export default function (state = initialState, action) {
@@ -27,11 +27,12 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 pending: false,
-                error: action.error
+                error: true
             }
         case CLEAR_TRAILERS:
             return {
                 ...state,
+                error: false,
                 keys: undefined
             }
         default:

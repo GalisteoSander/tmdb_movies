@@ -26,7 +26,6 @@ describe('actions', () => {
     it('should return an error when one occurred during movie fetching', () => {
 
         const expectedAction = {
-            error: {},
             type: types.FETCH_YOUTUBE_TRAILER_KEYS_ERROR,
         }
         expect(actions.fetchYoutubeTrailerKeysError({})).toEqual(expectedAction)
